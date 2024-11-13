@@ -27,7 +27,6 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            ->login()
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
@@ -37,6 +36,11 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 PanelStats::class,
                 Widgets\AccountWidget::class,
+            ])
+            ->plugins([
+                \TomatoPHP\FilamentSocial\FilamentSocialPlugin::make()
+                    ->socialLogin()
+                    ->socialRegister()
             ])
             ->middleware([
                 EncryptCookies::class,

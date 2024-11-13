@@ -1,4 +1,5 @@
-<div x-data="{
+<div>
+    <div x-data="{
     counter: 0,
     editMode: $wire.entangle('editMode'),
     selectedCircle: null,
@@ -12,9 +13,9 @@
         this.circles = [];
     }
 }">
-    <div class="bg-gray-400 w-full h-[400px] mt-0.5 relative"
-         wire:ignore
-         x-data="{
+        <div class="h-screen w-full mt-0.5 relative"
+             wire:ignore
+             x-data="{
             map: null,
             circles: [],
             zoom: $wire.entangle('zoom'),
@@ -104,6 +105,7 @@
                 this.map = L.map('map', {
                     crs: L.CRS.Simple,
                     minZoom: -2,
+                    scrollWheelZoom: false,
                     maxZoom: this.zoom,
                     zoomControl: false,
                     attributionControl: true,
@@ -151,7 +153,7 @@
                 });
             }
         }"
-         x-init="
+             x-init="
             initMap();
             $watch('points', (newValue, oldValue) => {
                 if (JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
@@ -159,54 +161,55 @@
                 }
             });
         "
-    >
-        @if($editMode)
-            <div x-cloak x-show="points.filter(p => p.placedInMap === false).length > 0" class="absolute top-3 left-3 bg-white p-2 rounded shadow z-[1000]">
-                <h3 class="font-bold mb-2">Puestos pendientes:</h3>
-                <template x-cloak x-for="point in points.filter(p => p.placedInMap === false)" :key="point.id">
-                    <div class="mb-1">
-                        <span x-text="`${point.name}`"></span>
-                    </div>
-                </template>
-            </div>
-        @endif
-
-        <div id="map" class="w-full h-full"></div>
-
-        <div x-show="showDropdown"
-             x-cloak
-             @click.away="showDropdown = false"
-             :style="`position: absolute; left: ${dropdownPosition.x}px; top: ${dropdownPosition.y - 40}px;`"
-             class="flex flex-col bg-white shadow-lg rounded-md p-4 gap-2 z-[1000] transform -translate-x-1/2">
-
+        >
             @if($editMode)
-                <button @click="
+                <div x-cloak x-show="points.filter(p => p.placedInMap === false).length > 0" class="absolute top-3 left-3 bg-white p-2 rounded shadow z-[1000]">
+                    <h3 class="font-bold mb-2">Puestos pendientes:</h3>
+                    <template x-cloak x-for="point in points.filter(p => p.placedInMap === false)" :key="point.id">
+                        <div class="mb-1">
+                            <span x-text="`${point.name}`"></span>
+                        </div>
+                    </template>
+                </div>
+            @endif
+
+            <div id="map" class="w-full h-full"></div>
+
+            <div x-show="showDropdown"
+                 x-cloak
+                 @click.away="showDropdown = false"
+                 :style="`position: absolute; left: ${dropdownPosition.x}px; top: ${dropdownPosition.y - 40}px;`"
+                 class="flex flex-col bg-white shadow-lg rounded-md p-4 gap-2 z-[1000] transform -translate-x-1/2">
+
+                @if($editMode)
+                    <button @click="
                     selectedCircle.pointData.placedInMap = false;
                     selectedCircle.remove();
                     $wire.deleteDesk(selectedCircle.pointData);
                     circles = circles.filter(c => c !== selectedCircle);
                     selectedCircle = null;
                     showDropdown = false;"
-                        class="text-red-600 hover:text-red-800 whitespace-nowrap">
-                    Eliminar
-                </button>
-            @else
-                <template x-if="selectedCircle.pointData.bookings.length > 0">
-                    <div class="flex flex-col gap-2">
-                        <span>Reservado por Usuario</span>
-                        <button @click="$wire.deleteBook(selectedCircle.pointData);  $data.showDropdown = false;"
-                                class="text-red-600 hover:text-red-800 whitespace-nowrap">
-                            Cancelar Reserva
-                        </button>
-                    </div>
-                </template>
-                <template x-if="selectedCircle && selectedCircle.pointData.bookings.length === 0">
-                    <button @click="$wire.bookDesk(selectedCircle.pointData);  $data.showDropdown = false;"
-                            class="text-green-600 hover:text-green-800 whitespace-nowrap">
-                        Reservar
+                            class="text-red-600 hover:text-red-800 whitespace-nowrap">
+                        Eliminar
                     </button>
-                </template>
-            @endif
+                @else
+                    <template x-if="selectedCircle.pointData.bookings.length > 0">
+                        <div class="flex flex-col gap-2">
+                            <span>Reservado por Usuario</span>
+                            <button @click="$wire.deleteBook(selectedCircle.pointData);  $data.showDropdown = false;"
+                                    class="text-red-600 hover:text-red-800 whitespace-nowrap">
+                                Cancelar Reserva
+                            </button>
+                        </div>
+                    </template>
+                    <template x-if="selectedCircle && selectedCircle.pointData.bookings.length === 0">
+                        <button @click="$wire.bookDesk(selectedCircle.pointData);  $data.showDropdown = false;"
+                                class="text-green-600 hover:text-green-800 whitespace-nowrap">
+                            Reservar
+                        </button>
+                    </template>
+                @endif
+            </div>
         </div>
     </div>
 </div>

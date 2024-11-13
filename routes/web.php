@@ -1,7 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', \App\Livewire\Welcome::class)->name('welcome');
 Route::get('/login', \Filament\Pages\Auth\Login::class)->name('login');
-Route::get('/book', \App\Livewire\Book::class)->middleware(['auth'])->name('book');
+Route::get('/logout', fn () => Auth::logout())->name('logout');
+Route::get('/map/{roomId}/{date?}', \App\Livewire\Book::class)->middleware(['auth'])->name('book');
