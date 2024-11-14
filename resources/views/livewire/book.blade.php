@@ -194,7 +194,12 @@
                     </button>
                 </div>
                 <div class="flex flex-col justify-between items-center min-w-[200px] min-h-[70px]">
-
+                    <template x-if="selectedCircle && selectedCircle.pointData.attributes.image">
+                        <img :src="selectedCircle.pointData.imageStorage" width="120px" class="rounded-xl" />
+                    </template>
+                    <template x-if="selectedCircle && selectedCircle.pointData.attributes?.description">
+                        <span x-text="selectedCircle.pointData.attributes.description"></span>
+                    </template>
                 @if($editMode)
                     <button @click="
                     selectedCircle.pointData.placedInMap = false;
@@ -207,12 +212,6 @@
                         Eliminar
                     </button>
                 @else
-                    <template x-if="selectedCircle && selectedCircle.pointData.attributes.image">
-                        <img :src="selectedCircle.pointData.imageStorage" width="120px" class="rounded-xl" />
-                    </template>
-                    <template x-if="selectedCircle && selectedCircle.pointData.attributes?.description">
-                        <span x-text="selectedCircle.pointData.attributes.description"></span>
-                    </template>
                     <template x-if="selectedCircle && selectedCircle.pointData.bookings.length > 0">
                         <div class="flex flex-col gap-2">
                             <span>Reservado por <span x-text="selectedCircle.pointData.bookings[0]?.user.name"></span></span>

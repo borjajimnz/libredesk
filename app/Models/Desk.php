@@ -12,7 +12,7 @@ class Desk extends Model
 
     protected $casts = [
         'attributes' => 'array',
-        'active' => 'boolean'
+        'active' => 'boolean',
     ];
 
     protected $guarded = [];

@@ -29,31 +29,29 @@ class BookingsTable extends Component implements HasForms, HasTable
                 ->with('desk.room.floor.place')
                 ->where('user_id', Auth::id()))
             ->columns([
-                TextColumn::make('start')->dateTime(),
-                TextColumn::make('end')->dateTime(),
-                TextColumn::make('desk.name'),
-                TextColumn::make('desk.room.name'),
-                TextColumn::make('desk.room.floor.name'),
                 TextColumn::make('desk.room.floor.place.name'),
+                TextColumn::make('desk.name')
+                    ->description(function ($record) {
+                        return $record->desk->room->name . ' / ' . $record->desk->room->floor->name;
+                    }),
+                TextColumn::make('start')->dateTime()
+                    ->label('Date')
+                ->description(fn ($state) => $state->diffForHumans()),
             ])
             ->filters([
                 // ...
             ])
+            ->recordUrl(function ($record) {
+                return route('book', [$record->desk->room->id, Carbon::parse($record->start)->format('Y-m-d')]);
+            })
             ->actions([
-                Action::make('manage')
-                    ->button()
-                    ->color('primary')
-                    ->size('xs')
-                ->url(function ($record) {
-                    return route('book', [$record->desk->room->id, Carbon::parse($record->start)->format('Y-m-d')]);
-                }),
                 \Filament\Tables\Actions\ActionGroup::make([
                     Action::make('release')
                         ->requiresConfirmation()
                         ->color('danger')
                         ->action(fn ($record) => $record->delete()),
-                ])
-            ], ActionsPosition::BeforeColumns)
+                ])->label('Manage')
+            ], ActionsPosition::AfterColumns)
             ->bulkActions([
                 // ...
             ]);

@@ -5,13 +5,11 @@
             <h2 class="text-3xl font-bold mb-4">
                 Hola {{ $name }}, ¿Quieres venir a la oficina?
             </h2>
-            <p class="text-xl text-blue-600 mb-8">
-                Haz tu reserva facilmente
+            <p class="text-xl text-primary-600 mb-8">
+                Reserva tu puesto de trabajo de manera rápida y sencilla y asegúrate de tener tu espacio listo.
             </p>
             @livewire('reservation')
-
             @livewire('bookings-table')
-
         </div>
     @endauth
 

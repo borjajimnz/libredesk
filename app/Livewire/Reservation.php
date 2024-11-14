@@ -46,6 +46,7 @@ class Reservation extends Component implements HasForms
             ->columns(12)
             ->schema([
                     DatePicker::make('date')
+                        ->minDate(now()->startOfDay())
                         ->label('')
                         ->required()
                         ->columnSpan(5)
@@ -61,11 +62,13 @@ class Reservation extends Component implements HasForms
                         ),
                     Actions::make([
                         Action::make('hola')
-                            ->disabled(fn (Get $get) => !$get('date') && $get('room'))
                             ->label('Book')
                             ->button()
                             ->label('Continue')
-                            ->action(function () {
+                            ->action(function () use ($form) {
+                                $form->fill($this->data);
+                                $form->validate();
+
                                 $this->redirect(route('book', [
                                     data_get($this, 'data.room'),
                                     data_get($this, 'data.date'),

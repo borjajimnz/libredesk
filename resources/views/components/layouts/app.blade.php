@@ -27,7 +27,7 @@
 <nav class="bg-white shadow-lg">
     <div class="max-w-6xl mx-auto px-4">
         <div class="flex justify-between items-center py-4">
-            <a href="{{ route('welcome') }}" class="text-2xl font-bold text-blue-600">{{ config('app.name') }}</a>
+            <a href="{{ route('welcome') }}" class="text-2xl font-bold text-primary-600">{{ config('app.name') }}</a>
             @auth
                 <div class="space-x-4">
                     <a href="{{ route('logout') }}" class="text-gray-600 hover:text-blue-600">{{ __('logout') }}</a>

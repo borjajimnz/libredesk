@@ -47,6 +47,7 @@ class RoomResource extends Resource
                             ->getOptionLabelFromRecordUsing(fn (Model $record) => "{$record->place->name} -> {$record->name}")
                             ->preload(),
                         Forms\Components\FileUpload::make('attributes.image')
+                            ->visible(fn ($record) => $record)
                             ->hintAction(
                                 Forms\Components\Actions\Action::make('Configure Desks in Map')
                                     ->url(fn ($record) => route('book', [$record->id]))
@@ -63,6 +64,7 @@ class RoomResource extends Resource
                             ->required()
                             ->maxLength(255),
                         Forms\Components\FileUpload::make('attributes.image'),
+                        Forms\Components\Hidden::make('attributes.position'),
                         Forms\Components\Textarea::make('attributes.description')
                             ->label('Intern description')
                             ->helperText('monitors, mouse..'),
