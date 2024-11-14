@@ -14,6 +14,7 @@ use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Enums\ActionsPosition;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\HtmlString;
 use Livewire\Component;
 
 class BookingsTable extends Component implements HasForms, HasTable
@@ -24,19 +25,23 @@ class BookingsTable extends Component implements HasForms, HasTable
     public function table(Table $table): Table
     {
         return $table
-            ->heading('upcoming bookings')
+            ->striped()
             ->query(DeskBooking::query()
                 ->with('desk.room.floor.place')
+                ->where('start', '>', now()->subDay())
                 ->where('user_id', Auth::id()))
             ->columns([
-                TextColumn::make('desk.room.floor.place.name'),
-                TextColumn::make('desk.name')
-                    ->description(function ($record) {
-                        return $record->desk->room->name . ' / ' . $record->desk->room->floor->name;
-                    }),
-                TextColumn::make('start')->dateTime()
+                TextColumn::make('start')->date()
                     ->label('Date')
-                ->description(fn ($state) => $state->diffForHumans()),
+                    ->description(fn ($state) => $state->diffForHumans()),
+                TextColumn::make('desk.name')
+                    ->html()
+                    ->formatStateUsing(function ($record) {
+                        return new HtmlString('<strong>'.$record->desk->name. '</strong>') . ' (' . $record->desk->room->name . ')';
+                    })
+                    ->description(function ($record) {
+                        return $record->desk->room->floor->name . ' / ' . $record->desk->room->floor->place->name;
+                    }),
             ])
             ->filters([
                 // ...
@@ -45,6 +50,13 @@ class BookingsTable extends Component implements HasForms, HasTable
                 return route('book', [$record->desk->room->id, Carbon::parse($record->start)->format('Y-m-d')]);
             })
             ->actions([
+                Action::make('view map')
+                    ->tooltip('Map')
+                    ->iconButton()
+                    ->icon('heroicon-o-map')
+                    ->url(function ($record) {
+                        return route('book', [$record->desk->room->id, Carbon::parse($record->start)->format('Y-m-d')]);
+                    }),
                 \Filament\Tables\Actions\ActionGroup::make([
                     Action::make('release')
                         ->requiresConfirmation()

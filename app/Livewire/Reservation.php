@@ -46,12 +46,14 @@ class Reservation extends Component implements HasForms
             ->columns(12)
             ->schema([
                     DatePicker::make('date')
+                        ->prefixIcon('heroicon-o-calendar')
                         ->minDate(now()->startOfDay())
                         ->label('')
                         ->required()
                         ->columnSpan(5)
                         ->live(),
                     Select::make('room')
+                        ->prefixIcon('heroicon-o-building-office')
                         ->label('')
                         ->columnSpan(5)
                         ->required()
@@ -61,8 +63,9 @@ class Reservation extends Component implements HasForms
                             ->pluck('name', 'id')
                         ),
                     Actions::make([
-                        Action::make('hola')
+                        Action::make('book')
                             ->label('Book')
+                            ->icon('heroicon-o-map')
                             ->button()
                             ->label('Continue')
                             ->action(function () use ($form) {
