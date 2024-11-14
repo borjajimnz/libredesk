@@ -20,6 +20,9 @@
 </head>
 
 <body class="antialiased flex flex-col justify-between h-screen">
+<livewire:notifications />
+
+
 <!-- Navbar -->
 <nav class="bg-white shadow-lg">
     <div class="max-w-6xl mx-auto px-4">

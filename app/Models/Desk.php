@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Desk extends Model
 {
@@ -16,11 +17,16 @@ class Desk extends Model
 
     protected $guarded = [];
 
-    protected $appends = ['latlng'];
+    protected $appends = ['latlng', 'imageStorage'];
 
     public function getLatlngAttribute()
     {
         return data_get($this, 'attributes.latlng');
+    }
+
+    public function getImageStorageAttribute()
+    {
+        return Storage::url(data_get($this, 'attributes.image'));
     }
 
     public function room()

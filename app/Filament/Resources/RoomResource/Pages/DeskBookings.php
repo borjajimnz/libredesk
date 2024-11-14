@@ -41,7 +41,7 @@ class DeskBookings extends ManageRelatedRecords
         return $table
             ->recordTitleAttribute('name')
             ->columns([
-                Tables\Columns\TextColumn::make('contract.user.name'),
+                Tables\Columns\TextColumn::make('user.name'),
                 Tables\Columns\TextColumn::make('desk.name')->badge()->color(Color::Blue),
                 Tables\Columns\TextColumn::make('start')->date('d/m/Y H:i:s'),
                 Tables\Columns\TextColumn::make('end')->date('d/m/Y H:i:s'),
@@ -65,7 +65,7 @@ class DeskBookings extends ManageRelatedRecords
                 ]),
             ])
             ->modifyQueryUsing(function ($query) {
-                return $query->with('contract.user');
+                return $query->with('user');
             });
     }
 }

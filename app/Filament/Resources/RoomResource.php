@@ -47,6 +47,11 @@ class RoomResource extends Resource
                             ->getOptionLabelFromRecordUsing(fn (Model $record) => "{$record->place->name} -> {$record->name}")
                             ->preload(),
                         Forms\Components\FileUpload::make('attributes.image')
+                            ->hintAction(
+                                Forms\Components\Actions\Action::make('Configure Desks in Map')
+                                    ->url(fn ($record) => route('book', [$record->id]))
+                                ->button()
+                            )
                         ->disk('public')
                     ]),
 
@@ -57,6 +62,7 @@ class RoomResource extends Resource
                         Forms\Components\TextInput::make('name')
                             ->required()
                             ->maxLength(255),
+                        Forms\Components\FileUpload::make('attributes.image'),
                         Forms\Components\Textarea::make('attributes.description')
                             ->label('Intern description')
                             ->helperText('monitors, mouse..'),
@@ -112,7 +118,6 @@ class RoomResource extends Resource
             'index' => Pages\ListRooms::route('/'),
             'create' => Pages\CreateRoom::route('/create'),
             'edit' => Pages\EditRoom::route('/{record}/edit'),
-            'map' => Pages\EditRoomMap::route('/{record}/map'),
             'bookings' => Pages\DeskBookings::route('/{record}/bookings'),
         ];
     }
@@ -121,7 +126,6 @@ class RoomResource extends Resource
     {
         return $page->generateNavigationItems([
             Pages\EditRoom::class,
-            Pages\EditRoomMap::class,
             Pages\DeskBookings::class,
         ]);
     }

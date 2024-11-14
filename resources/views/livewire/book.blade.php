@@ -2,6 +2,7 @@
     <div x-data="{
     counter: 0,
     editMode: $wire.entangle('editMode'),
+    auth: $wire.entangle('auth'),
     selectedCircle: null,
     showDropdown: false,
     dropdownPosition: { x: 0, y: 0 },
@@ -18,7 +19,6 @@
              x-data="{
             map: null,
             circles: [],
-            zoom: $wire.entangle('zoom'),
             getNextUnplacedPoint() {
                 return $data.points
                     .filter(p => p.placedInMap === false)
@@ -62,7 +62,7 @@
 
                 @else
                 if (pointData.bookings.length > 0) {
-                    circle.bindTooltip('Reservado', {
+                    circle.bindTooltip(pointData.bookings[0]?.user.name, {
                         permanent: true,
                         direction: 'top'
                     });
@@ -173,13 +173,27 @@
                 </div>
             @endif
 
-            <div id="map" class="w-full h-full"></div>
+            <div id="map" class="w-full h-full" style="z-index: 13"></div>
 
             <div x-show="showDropdown"
                  x-cloak
                  @click.away="showDropdown = false"
                  :style="`position: absolute; left: ${dropdownPosition.x}px; top: ${dropdownPosition.y - 40}px;`"
                  class="flex flex-col bg-white shadow-lg rounded-md p-4 gap-2 z-[1000] transform -translate-x-1/2">
+
+                <div class="flex flex-row justify-between items-center min-w-[200px]">
+                    <span x-text="selectedCircle.pointData.name" class="font-semibold"></span>
+                    <button @click="
+                    selectedCircle = null;
+                    showDropdown = false;"
+                            class="whitespace-nowrap">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                        </svg>
+
+                    </button>
+                </div>
+                <div class="flex flex-col justify-between items-center min-w-[200px] min-h-[70px]">
 
                 @if($editMode)
                     <button @click="
@@ -193,13 +207,21 @@
                         Eliminar
                     </button>
                 @else
-                    <template x-if="selectedCircle.pointData.bookings.length > 0">
+                    <template x-if="selectedCircle && selectedCircle.pointData.attributes.image">
+                        <img :src="selectedCircle.pointData.imageStorage" width="120px" class="rounded-xl" />
+                    </template>
+                    <template x-if="selectedCircle && selectedCircle.pointData.attributes?.description">
+                        <span x-text="selectedCircle.pointData.attributes.description"></span>
+                    </template>
+                    <template x-if="selectedCircle && selectedCircle.pointData.bookings.length > 0">
                         <div class="flex flex-col gap-2">
-                            <span>Reservado por Usuario</span>
-                            <button @click="$wire.deleteBook(selectedCircle.pointData);  $data.showDropdown = false;"
-                                    class="text-red-600 hover:text-red-800 whitespace-nowrap">
-                                Cancelar Reserva
-                            </button>
+                            <span>Reservado por <span x-text="selectedCircle.pointData.bookings[0]?.user.name"></span></span>
+                            <div x-cloak x-show="selectedCircle.pointData.bookings[0]?.user.id === auth.id">
+                                <button @click="$wire.deleteBook(selectedCircle.pointData); $data.showDropdown = false;"
+                                        class="text-red-600 hover:text-red-800 whitespace-nowrap">
+                                    Cancelar Reserva
+                                </button>
+                            </div>
                         </div>
                     </template>
                     <template x-if="selectedCircle && selectedCircle.pointData.bookings.length === 0">
@@ -209,6 +231,7 @@
                         </button>
                     </template>
                 @endif
+                </div>
             </div>
         </div>
     </div>

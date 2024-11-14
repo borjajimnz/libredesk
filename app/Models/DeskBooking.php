@@ -21,4 +21,9 @@ class DeskBooking extends Model
     {
         return $this->belongsTo(Desk::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

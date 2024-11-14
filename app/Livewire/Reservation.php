@@ -9,10 +9,13 @@ use App\Models\Floor;
 use App\Models\Place;
 use App\Models\Room;
 use Carbon\Carbon;
+use Filament\Forms\Components\Actions;
+use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\MarkdownEditor;
+use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -20,6 +23,7 @@ use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
+use Filament\Support\Enums\ActionSize;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Storage;
@@ -39,34 +43,36 @@ class Reservation extends Component implements HasForms
     public function form(Form $form): Form
     {
         return $form
-            ->columns(4)
+            ->columns(12)
             ->schema([
-
                     DatePicker::make('date')
+                        ->label('')
                         ->required()
-                        ->lazy(),
-                    Select::make('place')
+                        ->columnSpan(5)
+                        ->live(),
+                    Select::make('room')
+                        ->label('')
+                        ->columnSpan(5)
                         ->required()
-                        ->live()
                         ->disabled(fn (Get $get) => !$get('date'))
-                        ->options(Place::query()->get()->pluck('name', 'id')),
-                    Select::make('floor')
-                        ->required()
-                        ->live()
-                        ->disabled(fn (Get $get) => !$get('place'))
-                        ->options(fn (Get $get) => Floor::query()
-                            ->where('place_id', $get('place'))
+                        ->options(fn (Get $get) => Room::query()
                             ->get()
                             ->pluck('name', 'id')
                         ),
-                    Select::make('room')
-                        ->required()
-                        ->disabled(fn (Get $get) => !$get('floor'))
-                        ->options(fn (Get $get) => Room::query()
-                            ->where('floor_id', $get('floor'))
-                            ->get()
-                            ->pluck('name', 'id')
-                        )
+                    Actions::make([
+                        Action::make('hola')
+                            ->disabled(fn (Get $get) => !$get('date') && $get('room'))
+                            ->label('Book')
+                            ->button()
+                            ->label('Continue')
+                            ->action(function () {
+                                $this->redirect(route('book', [
+                                    data_get($this, 'data.room'),
+                                    data_get($this, 'data.date'),
+                                ]));
+                            })
+                    ]),
+
 
             ])
             ->statePath('data');
