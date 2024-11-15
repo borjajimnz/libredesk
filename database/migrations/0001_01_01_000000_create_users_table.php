@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->jsonb('attributes')->nullable();
+            $table->enum('role', ['admin', 'user'])->default(\App\Enums\UserRole::User->value);
             $table->rememberToken();
             $table->timestamps();
         });
@@ -39,8 +41,9 @@ return new class extends Migration
 
 
         User::factory()->create([
-            'name' => 'borja',
-            'email' => 'borjajimnz@gmail.com',
+            'name' => 'admin',
+            'email' => 'admin@example.com',
+            'role' => \App\Enums\UserRole::Admin,
             'password' => \Illuminate\Support\Facades\Hash::make('password'),
         ]);
     }

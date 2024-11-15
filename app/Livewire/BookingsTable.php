@@ -66,7 +66,8 @@ class BookingsTable extends Component implements HasForms, HasTable
             ], ActionsPosition::AfterColumns)
             ->bulkActions([
                 // ...
-            ]);
+            ])
+            ->emptyStateHeading(fn () => translate('no_bookings'));
     }
 
     public function render()

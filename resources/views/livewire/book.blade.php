@@ -1,5 +1,6 @@
-<div>
-    <div x-data="{
+<div class="w-full h-full">
+    <div class="w-full h-full"
+        x-data="{
     counter: 0,
     editMode: $wire.entangle('editMode'),
     auth: $wire.entangle('auth'),
@@ -14,7 +15,7 @@
         this.circles = [];
     }
 }">
-        <div class="h-screen w-full mt-0.5 relative"
+        <div class="w-full h-full"
              wire:ignore
              x-data="{
             map: null,
@@ -104,9 +105,9 @@
             initMap() {
                 this.map = L.map('map', {
                     crs: L.CRS.Simple,
-                    minZoom: -2,
+                    minZoom: -1.5,
                     scrollWheelZoom: false,
-                    maxZoom: this.zoom,
+                    maxZoom: 10,
                     zoomControl: false,
                     attributionControl: true,
                     center: [513, 1000]
@@ -209,16 +210,16 @@
                     selectedCircle = null;
                     showDropdown = false;"
                             class="text-red-600 hover:text-red-800 whitespace-nowrap">
-                        Eliminar
+                        @translate('delete')
                     </button>
                 @else
                     <template x-if="selectedCircle && selectedCircle.pointData.bookings.length > 0">
                         <div class="flex flex-col gap-2">
-                            <span>Reservado por <span x-text="selectedCircle.pointData.bookings[0]?.user.name"></span></span>
+                            <span>@translate('reserved_by') <span x-text="selectedCircle.pointData.bookings[0]?.user.name"></span></span>
                             <div x-cloak x-show="selectedCircle.pointData.bookings[0]?.user.id === auth.id">
                                 <button @click="$wire.deleteBook(selectedCircle.pointData); $data.showDropdown = false;"
                                         class="text-red-600 hover:text-red-800 whitespace-nowrap">
-                                    Cancelar Reserva
+                                    @translate('cancel_booking')
                                 </button>
                             </div>
                         </div>
@@ -226,7 +227,7 @@
                     <template x-if="selectedCircle && selectedCircle.pointData.bookings.length === 0">
                         <button @click="$wire.bookDesk(selectedCircle.pointData);  $data.showDropdown = false;"
                                 class="text-green-600 hover:text-green-800 whitespace-nowrap">
-                            Reservar
+                            @translate('book_it')
                         </button>
                     </template>
                 @endif

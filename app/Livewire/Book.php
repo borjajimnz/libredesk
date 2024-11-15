@@ -81,7 +81,7 @@ class Book extends Component implements HasForms
 
         if ($booked) {
             Notification::make()
-                ->title('only allowed to book once')
+                ->title(translate('only_allowed_to_book_once'))
                 ->danger()
                 ->send();
             return;
@@ -95,7 +95,7 @@ class Book extends Component implements HasForms
         ]);
 
         Notification::make()
-            ->title('booked_successfull')
+            ->title(translate('booked_successfully'))
             ->success()
             ->send();
 
@@ -110,7 +110,7 @@ class Book extends Component implements HasForms
             ->delete();
 
         Notification::make()
-            ->title('booking_cancelled')
+            ->title(translate('booking_cancelled'))
             ->success()
             ->send();
 

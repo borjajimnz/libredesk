@@ -65,9 +65,7 @@ class RoomResource extends Resource
                             ->maxLength(255),
                         Forms\Components\FileUpload::make('attributes.image'),
                         Forms\Components\Hidden::make('attributes.position'),
-                        Forms\Components\Textarea::make('attributes.description')
-                            ->label('Intern description')
-                            ->helperText('monitors, mouse..'),
+                        Forms\Components\Textarea::make('attributes.description'),
                     ])->grid(4)
             ])
             ->columns(0);

@@ -63,11 +63,9 @@ class Reservation extends Component implements HasForms
                             ->pluck('name', 'id')
                         ),
                     Actions::make([
-                        Action::make('book')
-                            ->label('Book')
+                        Action::make('continue')
                             ->icon('heroicon-o-map')
                             ->button()
-                            ->label('Continue')
                             ->action(function () use ($form) {
                                 $form->fill($this->data);
                                 $form->validate();

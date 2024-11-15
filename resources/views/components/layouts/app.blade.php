@@ -20,21 +20,30 @@
 </head>
 
 <body class="antialiased flex flex-col justify-between h-screen">
-<livewire:notifications />
-
 
 <!-- Navbar -->
 <nav class="bg-white shadow-lg">
     <div class="max-w-6xl mx-auto px-4">
         <div class="flex justify-between items-center py-4">
-            <a href="{{ route('welcome') }}" class="text-2xl font-bold text-primary-600">{{ config('app.name') }}</a>
+            <a href="{{ route('welcome') }}" class="text-2xl font-bold text-primary-600">
+                @setting('name', config('app.name'))
+            </a>
             @auth
                 <div class="space-x-4">
-                    <a href="{{ route('logout') }}" class="text-gray-600 hover:text-blue-600">{{ __('logout') }}</a>
+                    @if(auth()->user()->admin)
+                        <a href="{{ route('filament.admin.pages.dashboard') }}" class="text-gray-600 hover:text-blue-600">
+                            @translate('admin')
+                        </a>
+                    @endif
+                    <a href="{{ route('logout') }}" class="text-gray-600 hover:text-blue-600">
+                       @translate('logout')
+                    </a>
                 </div>
             @else
                 <div class="space-x-4">
-                    <a href="{{ route('login') }}" class="text-gray-600 hover:text-blue-600">{{ __('login') }}</a>
+                    <a href="{{ route('login') }}" class="text-gray-600 hover:text-blue-600">
+                        @translate('login')
+                    </a>
                 </div>
             @endguest
         </div>
@@ -43,11 +52,11 @@
 
 {{ $slot }}
 
+<livewire:notifications />
 <!-- Footer -->
-<footer class="bg-gray-800 text-white">
-    <div class="max-w-6xl mx-auto px-4 py-8 flex flex-col items-center">
-        <h3 class="text-xl font-bold mb-4">LibreDesk</h3>
-        <p class="text-gray-400">Tu plataforma de reserva de espacios de trabajo</p>
+<footer class="bg-primary-900 text-primary-50">
+    <div class="max-w-6xl mx-auto px-4 py-2 flex flex-col items-center gap-2">
+        <p class="text-primary-400">{{ config('app.name') }} {{config('libredesk.version')}}</p>
     </div>
 </footer>
 
