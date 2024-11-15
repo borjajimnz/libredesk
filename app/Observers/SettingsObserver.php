@@ -12,7 +12,11 @@ class SettingsObserver
      */
     public function created(Settings $settings): void
     {
-        Cache::delete('settings_' . $settings->key);
+        try {
+            Cache::delete('settings_' . $settings->key);
+        } catch (\Exception $exception) {
+
+        }
     }
 
     /**
