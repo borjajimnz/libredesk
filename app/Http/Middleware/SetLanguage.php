@@ -16,10 +16,15 @@ class SetLanguage
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $locale = setting('language');
+        try {
+            $locale = setting('language');
 
-        if (in_array($locale, array_keys(config('libredesk.languages')))) {
-            App::setLocale($locale);
+            if (in_array($locale, array_keys(config('libredesk.languages')))) {
+                App::setLocale($locale);
+            }
+
+        } catch (\Exception $exception) {
+
         }
 
         return $next($request);
