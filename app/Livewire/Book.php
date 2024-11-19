@@ -60,7 +60,6 @@ class Book extends Component implements HasForms
     public function deleteDesk($desk)
     {
         $desk = Desk::query()
-            ->where('user_id', Auth::id())
             ->where('id', $desk['id'])
             ->firstOrFail();
 

@@ -37,4 +37,6 @@ return [
     'google_login' => 'Iniciar sesión con Google',
     'domain_not_allowed' => 'El dominio de correo electrónico no está permitido.',
     'no_bookings' => 'Aún no has reservado ningún escritorio.',
+    'dataoptions_value' => 'Valor',
+    'pending_desks' => 'Escritorios Pendientes',
 ];

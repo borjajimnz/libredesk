@@ -37,4 +37,6 @@ return [
     'google_login' => 'Log in with Google',
     'domain_not_allowed' => 'The email domain is not allowed.',
     'no_bookings' => 'You have not booked any desks yet.',
+    'dataoptions_value' => 'Value',
+    'pending_desks' => 'Pending Desks',
 ];

@@ -3,7 +3,11 @@
 if (!function_exists('setting')) {
     function setting($key, $default = ''): mixed
     {
-        return \App\Setting::get($key, $default);
+        try {
+            return \App\Setting::get($key, $default);
+        } catch (Exception $exception) {
+            return $key;
+        }
     }
 }
 

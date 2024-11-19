@@ -28,7 +28,7 @@
                     <div class="flex justify-center">
                         @guest
                             <a href="{{ route('login') }}"
-                               class="bg-blue-600 text-white px-8 py-4 rounded-lg text-lg hover:bg-blue-700">
+                               class="bg-primary-600 text-white px-8 py-4 rounded-lg text-lg hover:bg-primary-700">
                                 @translate('book_your_seat')
                             </a>
                         @endguest

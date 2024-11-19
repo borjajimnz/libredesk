@@ -1,5 +1,5 @@
 <div class="w-full h-full">
-    <div class="w-full h-full"
+    <div class="relative w-full h-full"
         x-data="{
     counter: 0,
     editMode: $wire.entangle('editMode'),
@@ -164,8 +164,8 @@
         "
         >
             @if($editMode)
-                <div x-cloak x-show="points.filter(p => p.placedInMap === false).length > 0" class="absolute top-3 left-3 bg-white p-2 rounded shadow z-[1000]">
-                    <h3 class="font-bold mb-2">Puestos pendientes:</h3>
+                <div x-cloak x-show="points.filter(p => p.placedInMap === false).length > 0" class="absolute top-10 left-10 bg-white p-2 min-w-[230px] rounded shadow z-[1000]">
+                    <h3 class="font-bold mb-2">@translate('pending_desks')</h3>
                     <template x-cloak x-for="point in points.filter(p => p.placedInMap === false)" :key="point.id">
                         <div class="mb-1">
                             <span x-text="`${point.name}`"></span>
@@ -174,7 +174,7 @@
                 </div>
             @endif
 
-            <div id="map" class="w-full h-full" style="z-index: 13"></div>
+            <div id="map" class="bg-white w-full h-full" style="z-index: 13"></div>
 
             <div x-show="showDropdown"
                  x-cloak
@@ -203,9 +203,9 @@
                     </template>
                 @if($editMode)
                     <button @click="
+                    $wire.deleteDesk(selectedCircle.pointData);
                     selectedCircle.pointData.placedInMap = false;
                     selectedCircle.remove();
-                    $wire.deleteDesk(selectedCircle.pointData);
                     circles = circles.filter(c => c !== selectedCircle);
                     selectedCircle = null;
                     showDropdown = false;"
