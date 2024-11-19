@@ -39,4 +39,5 @@ return [
     'no_bookings' => 'Aún no has reservado ningún escritorio.',
     'dataoptions_value' => 'Valor',
     'pending_desks' => 'Escritorios Pendientes',
+    'choose_date' => 'Elige una fecha',
 ];

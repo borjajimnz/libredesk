@@ -39,4 +39,5 @@ return [
     'no_bookings' => 'You have not booked any desks yet.',
     'dataoptions_value' => 'Value',
     'pending_desks' => 'Pending Desks',
+    'choose_date' => 'Choose date',
 ];
