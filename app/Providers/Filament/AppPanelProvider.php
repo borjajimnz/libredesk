@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\Login;
 use App\Http\Middleware\DoNotAllowAppDashboard;
 use App\Http\Middleware\SetLanguage;
 use Filament\Http\Middleware\Authenticate;
@@ -26,6 +27,7 @@ class AppPanelProvider extends PanelProvider
     {
         return $panel
             ->default()
+            ->login(Login::class)
             ->id('app')
             ->brandName(setting('name', 'wtf'))
             ->path('app')
