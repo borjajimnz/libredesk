@@ -57,7 +57,6 @@ class AppPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->login()
             ->registration()
             ->passwordReset()
             ->emailVerification()
