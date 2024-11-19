@@ -1,4 +1,4 @@
-<div class="bg-gray-50 flex-grow">
+<div class="flex-grow bg-gray-50 flex items-center justify-center">
     @auth
         <!-- Reservation -->
         <div class="max-w-4xl mx-auto px-4 py-16 text-center">
@@ -14,7 +14,7 @@
     @endauth
 
     @guest
-        <div class="bg-white">
+        <div>
             <div class="max-w-6xl mx-auto px-4 py-16">
                 <div class="flex flex-col items-center">
                     @setting('name', config('app.name'))
