@@ -27,7 +27,6 @@ class AppPanelProvider extends PanelProvider
     {
         return $panel
             ->default()
-            ->login(Login::class)
             ->id('app')
             ->brandName(setting('name', 'wtf'))
             ->path('app')
@@ -60,6 +59,7 @@ class AppPanelProvider extends PanelProvider
             ->registration()
             ->passwordReset()
             ->emailVerification()
+            ->login(Login::class)
             ->darkMode(false)
             ->profile();
     }
