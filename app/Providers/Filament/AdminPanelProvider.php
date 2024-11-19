@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\Login;
 use App\Filament\Widgets\PanelStats;
 use App\Http\Middleware\SetLanguage;
 use Filament\Http\Middleware\Authenticate;
@@ -26,7 +27,6 @@ class AdminPanelProvider extends PanelProvider
     {
         return $panel
             ->id('admin')
-            ->login()
             ->brandName(setting('name'))
             ->path('admin')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
@@ -52,6 +52,7 @@ class AdminPanelProvider extends PanelProvider
                 SetLanguage::class,
             ])
             ->darkMode(false)
+            ->login(Login::class)
             ->authMiddleware([
                 Authenticate::class,
             ]);
