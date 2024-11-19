@@ -53,13 +53,13 @@ class AppPanelProvider extends PanelProvider
                 DoNotAllowAppDashboard::class,
                 SetLanguage::class,
             ])
+            ->login(Login::class)
             ->authMiddleware([
                 Authenticate::class,
             ])
             ->registration()
             ->passwordReset()
             ->emailVerification()
-            ->login(Login::class)
             ->darkMode(false)
             ->profile();
     }
