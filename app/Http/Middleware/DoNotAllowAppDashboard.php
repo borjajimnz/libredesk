@@ -15,7 +15,7 @@ class DoNotAllowAppDashboard
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->routeIs('filament.app.*') && auth()) {
+        if ($request->routeIs('filament.app.*') && auth()->check()) {
             return redirect()->to(route('welcome'));
         }
 

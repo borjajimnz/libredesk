@@ -46,7 +46,6 @@ class Reservation extends Component implements HasForms
             ->columns(12)
             ->schema([
                     DatePicker::make('date')
-                        ->prefixIcon('heroicon-o-calendar')
                         ->minDate(now()->startOfDay())
                         ->label('')
                         ->required()

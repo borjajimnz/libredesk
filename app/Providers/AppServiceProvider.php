@@ -82,6 +82,11 @@ class AppServiceProvider extends ServiceProvider
     private function registerFilamentViews()
     {
         FilamentView::registerRenderHook(
+            PanelsRenderHook::USER_MENU_BEFORE,
+            fn (): string => Blade::render('<a href="' . route('welcome') . '">Homepage</a>'),
+        );
+
+        FilamentView::registerRenderHook(
             PanelsRenderHook::AUTH_LOGIN_FORM_AFTER,
             fn (): string => Blade::render('@livewire(\'social\')'),
         );

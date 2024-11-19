@@ -22,8 +22,8 @@
 <body class="antialiased flex flex-col justify-between h-screen">
 
 <!-- Navbar -->
-<nav class="bg-white shadow-lg">
-    <div class="max-w-6xl mx-auto px-4">
+<nav class="bg-white border">
+    <div class="max-w-7xl mx-auto px-4">
         <div class="flex justify-between items-center py-4">
             <a href="{{ route('welcome') }}" class="text-2xl font-bold text-primary-600">
                 @setting('name', config('app.name'))
@@ -41,7 +41,7 @@
                 </div>
             @else
                 <div class="space-x-4">
-                    <a href="{{ route('login') }}" class="text-gray-600 hover:text-blue-600">
+                    <a href="{{ route('filament.app.auth.login') }}" class="text-gray-600 hover:text-blue-600">
                         @translate('login')
                     </a>
                 </div>
@@ -54,8 +54,8 @@
 
 <livewire:notifications />
 <!-- Footer -->
-<footer class="bg-primary-900 text-primary-50">
-    <div class="max-w-6xl mx-auto px-4 py-2 flex flex-col items-center gap-2">
+<footer class="bg-transparent border-t text-primary-2000">
+    <div class="max-w-6xl mx-auto px-4 py-8 flex flex-col items-center gap-2">
         <p class="text-primary-400">{{ config('app.name') }} {{config('libredesk.version')}}</p>
     </div>
 </footer>

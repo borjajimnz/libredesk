@@ -1,4 +1,4 @@
-<div>
+<div class="bg-gray-50 flex-grow">
     @auth
         <!-- Reservation -->
         <div class="max-w-4xl mx-auto px-4 py-16 text-center">
@@ -27,7 +27,7 @@
                     </p>
                     <div class="flex justify-center">
                         @guest
-                            <a href="{{ route('login') }}"
+                            <a href="{{ route('filament.app.auth.login') }}"
                                class="bg-primary-600 text-white px-8 py-4 rounded-lg text-lg hover:bg-primary-700">
                                 @translate('book_your_seat')
                             </a>

@@ -11,7 +11,6 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
-use Filament\Support\Colors\Color;
 use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -26,9 +25,8 @@ class AppPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
-            ->default()
             ->id('app')
-            ->brandName(setting('name', 'wtf'))
+            ->brandName(setting('name', config('app.name')))
             ->path('app')
             ->discoverResources(in: app_path('Filament/App/Resources'), for: 'App\\Filament\\App\\Resources')
             ->discoverPages(in: app_path('Filament/App/Pages'), for: 'App\\Filament\\App\\Pages')
@@ -53,7 +51,6 @@ class AppPanelProvider extends PanelProvider
                 DoNotAllowAppDashboard::class,
                 SetLanguage::class,
             ])
-            ->login(Login::class)
             ->authMiddleware([
                 Authenticate::class,
             ])
@@ -61,6 +58,7 @@ class AppPanelProvider extends PanelProvider
             ->passwordReset()
             ->emailVerification()
             ->darkMode(false)
-            ->profile();
+            ->profile()
+            ->login(Login::class);
     }
 }
