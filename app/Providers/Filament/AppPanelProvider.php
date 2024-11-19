@@ -60,6 +60,7 @@ class AppPanelProvider extends PanelProvider
             ->registration()
             ->passwordReset()
             ->emailVerification()
+            ->darkMode(false)
             ->profile();
     }
 }
