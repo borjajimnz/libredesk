@@ -1,4 +1,10 @@
 <div class="w-full h-full">
+    @php
+        $imageStorage = \Illuminate\Support\Facades\Storage::disk('public');
+        $imageUrl = $imageStorage->url($image);
+        $imagePath = $imageStorage->path($image);
+        list($width, $height) = getimagesize($imagePath);
+    @endphp
     <div class="relative w-full h-full"
         x-data="{
     counter: 0,
@@ -105,20 +111,23 @@
             initMap() {
                 this.map = L.map('map', {
                     crs: L.CRS.Simple,
-                    minZoom: -1.5,
+                    minZoom: -3.5,
                     scrollWheelZoom: false,
-                    maxZoom: 10,
+                    maxZoom: 0,
                     zoomControl: false,
                     attributionControl: true,
-                    center: [513, 1000]
+
                 });
 
-                const bounds = L.latLngBounds([
-                    [0, 0],
-                    [1026, 2000]
-                ]);
+                const halfHeight = {{ $height }} * 1.2;
+                const halfWidth = {{ $width }} * 1.2;
+                const bounds = [
+                    [-halfHeight, -halfWidth],
+                    [{{ $height*(2.5) }}, {{ $width*(2.5) }}]
+                ];
 
-                L.imageOverlay('{{ $image }}', bounds).addTo(this.map);
+
+                L.imageOverlay('{{ $imageUrl }}', bounds).addTo(this.map);
                 this.map.fitBounds(bounds);
 
                 L.control.zoom({

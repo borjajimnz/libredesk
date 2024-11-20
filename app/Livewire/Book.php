@@ -134,7 +134,7 @@ class Book extends Component implements HasForms
             return;
         }
 
-        $this->image = Storage::url(data_get($room, 'attributes.image'));
+        $this->image = data_get($room, 'attributes.image');
         $this->desks = $room->desks
             ->map(function ($desk) {
                 if (!empty(data_get($desk, 'attributes.position', []))) {
