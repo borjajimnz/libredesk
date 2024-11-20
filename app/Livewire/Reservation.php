@@ -23,6 +23,7 @@ use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Filament\Support\Enums\ActionSize;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
@@ -47,19 +48,18 @@ class Reservation extends Component implements HasForms
             ->schema([
                     DatePicker::make('date')
                         ->prefixIcon('heroicon-o-calendar')
-                        ->native(false)
                         ->placeholder(translate('choose_date'))
                         ->minDate(now()->startOfDay())
                         ->label('')
                         ->required()
                         ->columnSpan(5)
-                        ->live(),
-                    Select::make('room')
+                        ->lazy()
+                        ->closeOnDateSelection(),
+                Select::make('room')
                         ->prefixIcon('heroicon-o-building-office')
                         ->label('')
                         ->columnSpan(5)
                         ->required()
-                        ->disabled(fn (Get $get) => !$get('date'))
                         ->options(fn (Get $get) => Room::query()
                             ->get()
                             ->pluck('name', 'id')
