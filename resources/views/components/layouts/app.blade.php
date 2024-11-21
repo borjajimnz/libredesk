@@ -35,6 +35,10 @@
                             @translate('admin')
                         </a>
                     @endif
+                        <a href="{{ route('profile') }}" class="text-gray-600 hover:text-blue-600">
+                            @translate('profile')
+                        </a>
+
                     <a href="{{ route('logout') }}" class="text-gray-600 hover:text-blue-600">
                        @translate('logout')
                     </a>

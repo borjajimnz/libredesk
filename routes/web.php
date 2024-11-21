@@ -10,7 +10,11 @@ Route::get('/', \App\Livewire\Welcome::class)
     ->middleware([\App\Http\Middleware\SetLanguage::class])
     ->name('welcome');
 
+Route::get('/profile', \App\Livewire\Profile::class)
+    ->middleware([\Illuminate\Auth\Middleware\Authenticate::class,
+        \App\Http\Middleware\SetLanguage::class])
 
+    ->name('profile');
 
 Route::get('/logout', function () {
     Auth::logout();
