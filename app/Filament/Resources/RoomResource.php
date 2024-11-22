@@ -50,6 +50,7 @@ class RoomResource extends Resource
                             ->visible(fn ($record) => $record)
                             ->hintAction(
                                 Forms\Components\Actions\Action::make('Configure Desks in Map')
+                                    ->disabled(fn ($record) => data_get($record, 'attributes.image') === null)
                                     ->url(fn ($record) => route('book', [$record->id]))
                                 ->button()
                             )
