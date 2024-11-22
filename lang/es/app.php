@@ -52,4 +52,7 @@ return [
     'profile_deltails' => 'Detalles del perfil',
     'profile_photo_path' => 'Foto de Perfil',
     'updated_successfully' => 'Actualizado correctamente.',
+    'deleted_successfully' => 'Eliminado con éxito.',
+    'email_not_match' => 'El correo electrónico ingresado no coincide.',
+
 ];

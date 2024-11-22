@@ -59,6 +59,7 @@ class AppPanelProvider extends PanelProvider
             ->emailVerification()
             ->darkMode(false)
             ->profile()
+            ->emailVerification()
             ->login(Login::class);
     }
 }

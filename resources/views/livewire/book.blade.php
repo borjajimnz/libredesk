@@ -1,9 +1,16 @@
 <div class="w-full h-full">
     @php
-        $imageStorage = \Illuminate\Support\Facades\Storage::disk('public');
-        $imageUrl = $imageStorage->url($image);
-        $imagePath = $imageStorage->path($image);
-        list($width, $height) = getimagesize($imagePath);
+        try {
+            $imageStorage = \Illuminate\Support\Facades\Storage::disk('public');
+            $imageUrl = $imageStorage->url($image);
+            $imagePath = $imageStorage->path($image);
+            list($width, $height) = getimagesize($imagePath);
+        } catch (Exception $exception) {
+            $imagePath = '';
+            $imageUrl = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAIAAAD/gAIDAAAANElEQVR4nO3BAQ0AAADCoPdPbQ43oAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAfgx1lAABqFDyOQAAAABJRU5ErkJggg==';
+            $width = 800;
+            $height = 600;
+        }
     @endphp
     <div class="relative w-full h-full"
         x-data="{

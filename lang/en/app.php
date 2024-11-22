@@ -52,4 +52,6 @@ return [
     'profile_deltails' => 'Profile Details',
     'profile_photo_path' => 'Profile Avatar',
     'updated_successfully' => 'Updated successfully.',
+    'deleted_successfully' => 'Deleted successfully.',
+    'email_not_match' => 'The entered email does not match.',
 ];

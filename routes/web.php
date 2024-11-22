@@ -16,6 +16,10 @@ Route::get('/profile', \App\Livewire\Profile::class)
 
     ->name('profile');
 
+Route::get('/login', function () {
+    return redirect()->to(route('filament.app.auth.login'));
+})->name('login');
+
 Route::get('/logout', function () {
     Auth::logout();
     return redirect()->to(route('welcome'));

@@ -54,6 +54,7 @@ class Profile extends Component implements HasForms
     {
         $profile = Auth::user();
         $this->data = $profile->toArray();
+        $this->form->fill($this->data);
     }
 
 
@@ -71,29 +72,33 @@ class Profile extends Component implements HasForms
                                     TextInput::make('name')->columnSpan(4),
                                     TextInput::make('email')
                                         ->email(true)
-                                        ->unique(User::class, 'email', ignoreRecord: false)
+                                        ->unique(User::class, 'email', ignorable: Auth::user())
                                         ->columnSpan(4),
                                     TextInput::make('password')
                                         ->password()
                                         ->revealable(true)
                                         ->columnSpan(4),
                                 ]),
-                            FileUpload::make('profile_photo_path')->columnSpan(1),
+                            FileUpload::make('profile_photo_path')
+                                ->image() // Si es una imagen
+                                    ->disk('public')
+                                ->columnSpan(1),
                         ]),
 
 
                     Actions::make([
                         Action::make('update')
                             ->action(function () use ($form) {
-                                $form->fill($this->data);
+                                $state = $this->form($form)->getState();
+                                $form->fill($state);
 
                                 $user = Auth::user();
-                                $user->name = data_get($this, 'data.name');
-                                $user->email = data_get($this, 'data.email');
-                                $user->profile_photo_path = data_get($this, 'data.profile_photo_path');
+                                $user->name = data_get($state, 'name');
+                                $user->email = data_get($state, 'email');
+                                $user->profile_photo_path = data_get($state, 'profile_photo_path');
 
                                 if (data_get($this, 'data.password')) {
-                                    $user->password = Hash::make(data_get($this, 'data.password'));
+                                    $user->password = Hash::make(data_get($state, 'data.password'));
                                 }
 
                                 $user->save();
@@ -115,6 +120,22 @@ class Profile extends Component implements HasForms
                             ->label(translate('delete'))
                             ->color('danger')
                             ->requiresConfirmation()
+                            ->action(function() {
+                                $user = Auth::user();
+                                if (data_get($this, 'data.email_confirm') !== null && data_get($this, 'data.email_confirm') === $user->email) {
+                                    $user->delete();
+
+                                    Notification::make()
+                                        ->success()
+                                        ->title(translate('deleted_successfully'))
+                                        ->send();
+                                } else {
+                                    Notification::make()
+                                        ->danger()
+                                        ->title(translate('email_not_match'))
+                                        ->send();
+                                }
+                            })
                     ])->columnSpan(6),
                 ])->heading(translate('account_deletion'))
             ->columns(12),

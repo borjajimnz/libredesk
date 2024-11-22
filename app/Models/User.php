@@ -17,7 +17,7 @@ use TomatoPHP\FilamentSocial\Traits\InteractsWithSocials;
 
 #[ObservedBy([UserObserver::class])]
 
-class User extends Authenticatable implements FilamentUser
+    class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -57,6 +57,7 @@ class User extends Authenticatable implements FilamentUser
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'data' => 'array',
+            'attributes' => 'array',
             'role' => UserRole::class,
         ];
     }
