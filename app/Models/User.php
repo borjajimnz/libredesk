@@ -32,7 +32,7 @@ use TomatoPHP\FilamentSocial\Traits\InteractsWithSocials;
         'email',
         'password',
         'profile_photo_path',
-        'data',
+        'attributes',
         'role',
     ];
 
