@@ -6,6 +6,6 @@ trait Locale
 {
     public static function t($name, $options = []): \Illuminate\Foundation\Application|array|string|\Illuminate\Contracts\Translation\Translator|null
     {
-        return __( 'app.' . $name, $options);
+        return __('app.'.$name, $options);
     }
 }

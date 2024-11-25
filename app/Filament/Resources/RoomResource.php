@@ -3,13 +3,9 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\RoomResource\Pages;
-use App\Filament\Resources\RoomResource\RelationManagers;
 use App\Models\Room;
 use Filament\Forms;
-use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Pages\SubNavigationPosition;
 use Filament\Resources\Pages\Page;
@@ -18,13 +14,15 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class RoomResource extends Resource
 {
     protected static ?string $model = Room::class;
+
     protected static ?int $navigationSort = 5;
+
     protected static ?string $navigationIcon = null;
+
     protected static ?string $navigationGroup = 'Administration';
 
     protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Top;
@@ -39,7 +37,9 @@ class RoomResource extends Resource
                         ->maxLength(255),
                     Forms\Components\Grid::make()->schema([
                         Forms\Components\Select::make('floor_id')
-                            ->relationship('floor', 'name',
+                            ->relationship(
+                                'floor',
+                                'name',
                                 modifyQueryUsing: fn (Builder $query) => $query->with('place'),
                             )
                             ->searchable()
@@ -52,9 +52,9 @@ class RoomResource extends Resource
                                 Forms\Components\Actions\Action::make('Configure Desks in Map')
                                     ->disabled(fn ($record) => data_get($record, 'attributes.image') === null)
                                     ->url(fn ($record) => route('book', [$record->id]))
-                                ->button()
+                                    ->button()
                             )
-                        ->disk('public')
+                            ->disk('public'),
                     ]),
 
                 ]),
@@ -67,7 +67,7 @@ class RoomResource extends Resource
                         Forms\Components\FileUpload::make('attributes.image'),
                         Forms\Components\Hidden::make('attributes.position'),
                         Forms\Components\Textarea::make('attributes.description'),
-                    ])->grid(4)
+                    ])->grid(4),
             ])
             ->columns(0);
     }

@@ -54,5 +54,6 @@ return [
     'updated_successfully' => 'Actualizado correctamente.',
     'deleted_successfully' => 'Eliminado con éxito.',
     'email_not_match' => 'El correo electrónico ingresado no coincide.',
-
+    'username' => 'Usuario',
+    'release' => 'Liberar escritorio',
 ];

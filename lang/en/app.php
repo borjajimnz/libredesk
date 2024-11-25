@@ -54,4 +54,6 @@ return [
     'updated_successfully' => 'Updated successfully.',
     'deleted_successfully' => 'Deleted successfully.',
     'email_not_match' => 'The entered email does not match.',
+    'username' => 'Username',
+    'release' => 'Release desk',
 ];

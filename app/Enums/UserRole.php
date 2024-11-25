@@ -17,7 +17,7 @@ enum UserRole: string implements HasLabel
         };
     }
 
-    public function getColor(): string | array | null
+    public function getColor(): string|array|null
     {
         return match ($this) {
             self::Admin => 'purple',

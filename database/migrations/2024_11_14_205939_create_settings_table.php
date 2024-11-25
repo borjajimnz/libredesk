@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class () extends Migration {
     /**
      * Run the migrations.
      */
@@ -18,13 +17,12 @@ return new class extends Migration
             $table->timestamps();
         });
 
-
         \App\Models\Settings::query()->create([
             'key' => 'name',
             'data' => [
                 'type' => 'text',
                 'text_value' => 'LibreDesk',
-                'value' => 'LibreDesk'
+                'value' => 'LibreDesk',
             ],
         ]);
 
@@ -33,7 +31,7 @@ return new class extends Migration
             'data' => [
                 'type' => 'select',
                 'text_value' => 'en',
-                'value' => 'en'
+                'value' => 'en',
             ],
         ]);
 
@@ -42,7 +40,7 @@ return new class extends Migration
             'data' => [
                 'type' => 'options',
                 'options_value' => ['example.com', 'example.org'],
-                'value' => ['example.com', 'example.org']
+                'value' => ['example.com', 'example.org'],
             ],
         ]);
 
@@ -51,7 +49,7 @@ return new class extends Migration
             'data' => [
                 'type' => 'image',
                 'image_value' => '',
-                'value' => ''
+                'value' => '',
             ],
         ]);
 
@@ -60,7 +58,7 @@ return new class extends Migration
             'data' => [
                 'type' => 'color',
                 'color_value' => 'blue',
-                'value' => 'blue'
+                'value' => 'blue',
             ],
         ]);
     }

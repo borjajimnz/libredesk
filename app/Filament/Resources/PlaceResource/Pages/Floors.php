@@ -3,14 +3,11 @@
 namespace App\Filament\Resources\PlaceResource\Pages;
 
 use App\Filament\Resources\PlaceResource;
-use Filament\Actions;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Pages\ManageRelatedRecords;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class Floors extends ManageRelatedRecords
 {

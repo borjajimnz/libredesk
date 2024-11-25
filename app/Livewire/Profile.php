@@ -2,42 +2,19 @@
 
 namespace App\Livewire;
 
-use App\Filament\Resources\RoomResource\Pages\DeskBookings;
-use App\Models\Desk;
-use App\Models\DeskBooking;
-use App\Models\Floor;
-use App\Models\Place;
-use App\Models\Room;
 use App\Models\User;
-use Carbon\Carbon;
-use Filament\Actions\ActionGroup;
 use Filament\Forms\Components\Actions;
 use Filament\Forms\Components\Actions\Action;
-use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\Hidden;
-use Filament\Forms\Components\MarkdownEditor;
-use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Split;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
-use Filament\Forms\Get;
-use Filament\Forms\Set;
 use Filament\Notifications\Notification;
-use Filament\Support\Enums\ActionSize;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\HtmlString;
-use Illuminate\View\View;
 use Livewire\Component;
 
 class Profile extends Component implements HasForms
@@ -47,7 +24,9 @@ class Profile extends Component implements HasForms
     public ?array $data = [];
 
     public $image;
+
     public $roomId;
+
     public $date;
 
     public function mount()
@@ -56,7 +35,6 @@ class Profile extends Component implements HasForms
         $this->data = $profile->toArray();
         $this->form->fill($this->data);
     }
-
 
     public function form(Form $form): Form
     {
@@ -81,10 +59,9 @@ class Profile extends Component implements HasForms
                                 ]),
                             FileUpload::make('profile_photo_path')
                                 ->image() // Si es una imagen
-                                    ->disk('public')
+                                ->disk('public')
                                 ->columnSpan(1),
                         ]),
-
 
                     Actions::make([
                         Action::make('update')
@@ -107,7 +84,7 @@ class Profile extends Component implements HasForms
                                     ->success()
                                     ->title(translate('updated_successfully'))
                                     ->send();
-                            })
+                            }),
                     ]),
                 ])->heading(translate('profile_deltails')),
                 Section::make([
@@ -120,7 +97,7 @@ class Profile extends Component implements HasForms
                             ->label(translate('delete'))
                             ->color('danger')
                             ->requiresConfirmation()
-                            ->action(function() {
+                            ->action(function () {
                                 $user = Auth::user();
                                 if (data_get($this, 'data.email_confirm') !== null && data_get($this, 'data.email_confirm') === $user->email) {
                                     $user->delete();
@@ -135,10 +112,10 @@ class Profile extends Component implements HasForms
                                         ->title(translate('email_not_match'))
                                         ->send();
                                 }
-                            })
+                            }),
                     ])->columnSpan(6),
                 ])->heading(translate('account_deletion'))
-            ->columns(12),
+                    ->columns(12),
             ])
             ->statePath('data');
     }

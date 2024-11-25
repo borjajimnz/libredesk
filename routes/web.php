@@ -22,16 +22,15 @@ Route::get('/login', function () {
 
 Route::get('/logout', function () {
     Auth::logout();
+
     return redirect()->to(route('welcome'));
 })->name('logout');
 
 Route::get('/map/{roomId}/{date?}', \App\Livewire\Book::class)->middleware(['auth', \App\Http\Middleware\SetLanguage::class])->name('book');
 
-
 Route::get('auth/google', function () {
     return Socialite::driver('google')->redirect();
 })->name('google-login');
-
 
 Route::get('auth/google/callback', function () {
     $user = Socialite::driver('google')->stateless()->user();
@@ -55,8 +54,8 @@ Route::get('auth/google/callback', function () {
             'password' => bcrypt(Str::random(16)), // Se genera una contraseña aleatoria segura
             // Puedes guardar el Google ID si es necesario
             'data' => [
-                'google_id' => $googleId
-            ]
+                'google_id' => $googleId,
+            ],
         ]);
 
         Auth::login($newUser);

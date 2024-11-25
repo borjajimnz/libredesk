@@ -3,15 +3,12 @@
 namespace App\Filament\Resources\RoomResource\Pages;
 
 use App\Filament\Resources\RoomResource;
-use Filament\Actions;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Pages\ManageRelatedRecords;
 use Filament\Support\Colors\Color;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class DeskBookings extends ManageRelatedRecords
 {

@@ -14,9 +14,13 @@ use Filament\Tables\Table;
 class PlaceResource extends Resource
 {
     protected static ?string $model = Place::class;
+
     protected static ?int $navigationSort = 4;
+
     protected static ?string $navigationIcon = null;
+
     protected static ?string $navigationGroup = 'Administration';
+
     public static function form(Form $form): Form
     {
         return $form
@@ -59,7 +63,7 @@ class PlaceResource extends Resource
     public static function getRelations(): array
     {
         return [
-            FloorsRelationManager::class
+            FloorsRelationManager::class,
         ];
     }
 

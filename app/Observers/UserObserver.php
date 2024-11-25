@@ -14,9 +14,9 @@ class UserObserver
     {
         $allowedDomains = setting('allowed_register_domains');
         try {
-            if (is_array($allowedDomains) && !empty($allowedDomains)) {
-                $emailDomain = substr(strrchr($user->email, "@"), 1);
-                if (!in_array($emailDomain, $allowedDomains)) {
+            if (is_array($allowedDomains) && ! empty($allowedDomains)) {
+                $emailDomain = substr(strrchr($user->email, '@'), 1);
+                if (! in_array($emailDomain, $allowedDomains)) {
                     throw new \Exception(translate('domain_not_allowed'));
                 }
             }
@@ -29,7 +29,6 @@ class UserObserver
             return false;
         }
     }
-
 
     /**
      * Handle the User "updated" event.

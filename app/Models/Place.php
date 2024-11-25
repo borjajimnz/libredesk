@@ -10,7 +10,7 @@ class Place extends Model
     use HasFactory;
 
     protected $casts = [
-        'attributes' => 'array'
+        'attributes' => 'array',
     ];
 
     protected $guarded = [];

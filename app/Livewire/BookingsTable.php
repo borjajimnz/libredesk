@@ -4,9 +4,9 @@ namespace App\Livewire;
 
 use App\Models\DeskBooking;
 use Carbon\Carbon;
-use Filament\Actions\ActionGroup;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
+use Filament\Support\Colors\Color;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
@@ -19,8 +19,8 @@ use Livewire\Component;
 
 class BookingsTable extends Component implements HasForms, HasTable
 {
-    use InteractsWithTable;
     use InteractsWithForms;
+    use InteractsWithTable;
 
     public function table(Table $table): Table
     {
@@ -33,14 +33,21 @@ class BookingsTable extends Component implements HasForms, HasTable
             ->columns([
                 TextColumn::make('start')->date()
                     ->label('Date')
-                    ->description(fn ($state) => $state->diffForHumans()),
+                    ->color(function ($state) {
+                        if (now()->startOfDay() == $state->startOfDay()) {
+                            return Color::Yellow;
+                        }
+
+                        return Color::Green;
+                    })
+                    ->description(fn ($state) => now()->startOfDay() == $state->startOfDay() ? 'Reserved for today' : $state->diffForHumans()),
                 TextColumn::make('desk.name')
                     ->html()
                     ->formatStateUsing(function ($record) {
-                        return new HtmlString('<strong>'.$record->desk->name. '</strong>') . ' (' . $record->desk->room->name . ')';
+                        return new HtmlString('<strong>'.$record->desk->name.'</strong>').' ('.$record->desk->room->name.')';
                     })
                     ->description(function ($record) {
-                        return $record->desk->room->floor->name . ' / ' . $record->desk->room->floor->place->name;
+                        return $record->desk->room->floor->name.' / '.$record->desk->room->floor->place->name;
                     }),
             ])
             ->filters([
@@ -62,7 +69,7 @@ class BookingsTable extends Component implements HasForms, HasTable
                         ->requiresConfirmation()
                         ->color('danger')
                         ->action(fn ($record) => $record->delete()),
-                ])->label('Manage')
+                ])->label('Manage'),
             ], ActionsPosition::AfterColumns)
             ->bulkActions([
                 // ...

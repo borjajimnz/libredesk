@@ -4,23 +4,21 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\UserRole;
-use App\Observers\SettingsObserver;
 use App\Observers\UserObserver;
-use App\Providers\Filament\AdminPanelProvider;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use TomatoPHP\FilamentSocial\Traits\InteractsWithSocials;
 
 #[ObservedBy([UserObserver::class])]
 
-    class User extends Authenticatable implements FilamentUser
+class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -63,7 +61,7 @@ use TomatoPHP\FilamentSocial\Traits\InteractsWithSocials;
     }
 
     protected $appends = [
-        'Admin'
+        'Admin',
     ];
 
     public function bookings()

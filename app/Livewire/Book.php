@@ -4,21 +4,12 @@ namespace App\Livewire;
 
 use App\Models\Desk;
 use App\Models\DeskBooking;
-use App\Models\Floor;
-use App\Models\Place;
 use App\Models\Room;
 use Carbon\Carbon;
-use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
-use Filament\Forms\Form;
-use Filament\Forms\Get;
 use Filament\Notifications\Notification;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 
 class Book extends Component implements HasForms
@@ -26,11 +17,17 @@ class Book extends Component implements HasForms
     use InteractsWithForms;
 
     public ?array $data = [];
+
     public $editMode = false;
+
     public $image;
+
     public $roomId;
+
     public $date;
+
     public $auth;
+
     public $desks = [];
 
     public function mount($roomId, $date = null): void
@@ -42,7 +39,7 @@ class Book extends Component implements HasForms
         $this->auth = Auth::user()?->toArray();
         $this->loadDesks();
 
-        if (!$date) {
+        if (! $date) {
             $this->editMode = true;
         }
         $this->date = Carbon::parse($date);
@@ -83,6 +80,7 @@ class Book extends Component implements HasForms
                 ->title(translate('only_allowed_to_book_once'))
                 ->danger()
                 ->send();
+
             return;
         }
 
@@ -130,14 +128,14 @@ class Book extends Component implements HasForms
             ->where('id', $this->roomId)
             ->first();
 
-        if (!$room) {
+        if (! $room) {
             return;
         }
 
         $this->image = data_get($room, 'attributes.image');
         $this->desks = $room->desks
             ->map(function ($desk) {
-                if (!empty(data_get($desk, 'attributes.position', []))) {
+                if (! empty(data_get($desk, 'attributes.position', []))) {
                     $desk->lat = data_get($desk, 'attributes.position.lat');
                     $desk->lng = data_get($desk, 'attributes.position.lng');
                     $desk->placedInMap = true;
@@ -146,6 +144,7 @@ class Book extends Component implements HasForms
                     $desk->lng = 0;
                     $desk->placedInMap = false;
                 }
+
                 return $desk;
             })->toArray();
     }

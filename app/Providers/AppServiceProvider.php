@@ -4,9 +4,7 @@ namespace App\Providers;
 
 use App\Setting;
 use App\Traits\Locale;
-use App\Translate;
 use Filament\Actions\Action;
-use Filament\Facades\Filament;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
@@ -22,7 +20,6 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\View\PanelsRenderHook;
 use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 
@@ -31,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
     use Locale;
 
     public $bindings = [
-        "setting" => Setting::class
+        'setting' => Setting::class,
     ];
 
     /**
@@ -52,6 +49,7 @@ class AppServiceProvider extends ServiceProvider
         $this->registerFilamentColors();
         $this->registerBladeDirectives();
     }
+
     private function translateLabels(): void
     {
         $components = [
@@ -83,7 +81,7 @@ class AppServiceProvider extends ServiceProvider
     {
         FilamentView::registerRenderHook(
             PanelsRenderHook::USER_MENU_BEFORE,
-            fn (): string => Blade::render('<a href="' . route('welcome') . '">Homepage</a>'),
+            fn (): string => Blade::render('<a href="'.route('welcome').'">Homepage</a>'),
         );
 
         FilamentView::registerRenderHook(

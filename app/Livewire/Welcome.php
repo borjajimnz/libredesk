@@ -8,6 +8,7 @@ use Livewire\Component;
 class Welcome extends Component
 {
     public $bookings = [];
+
     public $name = null;
 
     public function mount()
@@ -18,6 +19,7 @@ class Welcome extends Component
             $this->bookings = $user->bookings->toArray();
         }
     }
+
     public function render()
     {
         return view('livewire.welcome');

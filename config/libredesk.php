@@ -11,8 +11,9 @@ return [
 
     'languages' => [
         'en' => 'English',
-        'es' => 'Spanish'
+        'es' => 'Spanish',
     ],
 
-    'version' => 'v1.0'
+    'version' => '1.0.1',
+    'demo' => ENV('LIBREDESK_DEMO', false),
 ];
