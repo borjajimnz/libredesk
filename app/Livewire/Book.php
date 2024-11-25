@@ -33,6 +33,11 @@ class Book extends Component implements HasForms
     public function mount($roomId, $date = null): void
     {
         $user = Auth::user();
+
+        if (!$user) {
+            redirect(route('welcome'));
+        }
+
         if ($date === null) {
             if ($user->Admin) {
                 $this->editMode = true;
@@ -40,6 +45,8 @@ class Book extends Component implements HasForms
                 redirect(route('welcome'));
             }
         }
+
+        $this->auth = $user->toArray();
 
         $this->loadDesks();
 
