@@ -5,7 +5,7 @@ return [
     'welcome_title_desc' => '¡Simplifica tu planificación y asegura un espacio cómodo siempre que lo necesites!',
     'continue' => 'Continuar',
     'welcome_guest_title' => '¡Bienvenido, Invitado!',
-    'welcome_guest_desc' => 'Estamos encantados de tenerte aquí. Inicia sesión para comenzar a reservar tu escritorio.',
+    'welcome_guest_desc' => 'Inicia sesión para comenzar a reservar tu escritorio.',
     'book_your_seat' => 'Reserva tu asiento ahora',
     'name' => 'Nombre',
     'floor_id' => 'Piso',

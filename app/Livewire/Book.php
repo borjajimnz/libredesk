@@ -32,11 +32,15 @@ class Book extends Component implements HasForms
 
     public function mount($roomId, $date = null): void
     {
+        $user = Auth::user();
         if ($date === null) {
-            // only allow admin, editmode = true
-            $this->editMode = true;
+            if ($user->Admin) {
+                $this->editMode = true;
+            } else {
+                redirect(route('welcome'));
+            }
         }
-        $this->auth = Auth::user()?->toArray();
+
         $this->loadDesks();
 
         if (! $date) {
