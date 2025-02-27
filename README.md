@@ -5,6 +5,11 @@ LibreDesk is a workspace management platform that allows users to efficiently bo
 ## Demo
 https://libredesk.brj.es
 
+![Homepage](public/build/cap1.png)
+![Booking](public/build/cap2.png)
+![Customization](public/build/cap3.png)
+![Room edit](public/build/cap4.png)
+
 ## Requirements
 
 PHP8.3
@@ -18,7 +23,9 @@ Composer
 
 ## About
 
-Libredesk is written in PHP using Laravel Framework and FilamentPHP.
+LibreDesk is written in PHP using Laravel Framework and FilamentPHP (under lovely Livewire).
 
 https://laravel.com/
 https://filamentphp.com/
+https://livewire.laravel.com/
+https://tailwindcss.com/
