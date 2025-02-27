@@ -53,6 +53,7 @@ class Profile extends Component implements HasForms
                                         ->unique(User::class, 'email', ignorable: Auth::user())
                                         ->columnSpan(4),
                                     TextInput::make('password')
+                                        ->hidden(config('app.env') === 'demo')
                                         ->password()
                                         ->revealable(true)
                                         ->columnSpan(4),
@@ -114,7 +115,9 @@ class Profile extends Component implements HasForms
                                 }
                             }),
                     ])->columnSpan(6),
-                ])->heading(translate('account_deletion'))
+                ])
+                    ->hidden(config('app.env') === 'demo')
+                    ->heading(translate('account_deletion'))
                     ->columns(12),
             ])
             ->statePath('data');

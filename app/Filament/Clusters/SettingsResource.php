@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Clusters;
 
 use App\Filament\Resources\SettingsResource\Pages;
 use App\Models\Settings;
@@ -14,6 +14,7 @@ class SettingsResource extends Resource
 {
     protected static ?string $model = Settings::class;
 
+    protected static ?string $cluster = Go::class;
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     protected static $colors = [
@@ -93,6 +94,12 @@ class SettingsResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->headerActions([
+                Tables\Actions\Action::make('hola')
+                    ->form([
+                        Forms\Components\TextInput::make('hola')
+                    ])
+            ])
             ->columns([
                 Tables\Columns\TextColumn::make('key'),
                 Tables\Columns\TextColumn::make('data.value'),
@@ -115,9 +122,9 @@ class SettingsResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListSettings::route('/'),
-            'create' => Pages\CreateSettings::route('/create'),
-            'edit' => Pages\EditSettings::route('/{record}/edit'),
+            'index' => \App\Filament\Clusters\SettingsResource\Pages\ListSettings::route('/'),
+            'create' => \App\Filament\Clusters\SettingsResource\Pages\CreateSettings::route('/create'),
+            'edit' => \App\Filament\Clusters\SettingsResource\Pages\EditSettings::route('/{record}/edit'),
         ];
     }
 }
