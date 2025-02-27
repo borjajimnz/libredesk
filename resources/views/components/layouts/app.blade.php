@@ -31,21 +31,21 @@
             @auth
                 <div class="space-x-4">
                     @if(auth()->user()->admin)
-                        <a href="{{ route('filament.admin.pages.dashboard') }}" class="text-gray-600 hover:text-blue-600">
+                        <a href="{{ route('filament.admin.pages.dashboard') }}" class="text-gray-600 hover:text-primary-600">
                             @translate('admin')
                         </a>
                     @endif
-                        <a href="{{ route('profile') }}" class="text-gray-600 hover:text-blue-600">
+                        <a href="{{ route('profile') }}" class="text-gray-600 hover:text-primary-600">
                             @translate('profile')
                         </a>
 
-                    <a href="{{ route('logout') }}" class="text-gray-600 hover:text-blue-600">
+                    <a href="{{ route('logout') }}" class="text-gray-600 hover:text-primary-600">
                        @translate('logout')
                     </a>
                 </div>
             @else
                 <div class="space-x-4">
-                    <a href="{{ route('filament.app.auth.login') }}" class="text-gray-600 hover:text-blue-600">
+                    <a href="{{ route('filament.app.auth.login') }}" class="text-gray-600 hover:text-primary-600">
                         @translate('login')
                     </a>
                 </div>
