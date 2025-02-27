@@ -14,7 +14,7 @@ class SettingsResource extends Resource
 {
     protected static ?string $model = Settings::class;
 
-    protected static ?string $cluster = Go::class;
+    protected static ?string $cluster = Configuration::class;
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     protected static $colors = [

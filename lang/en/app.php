@@ -56,4 +56,6 @@ return [
     'email_not_match' => 'The entered email does not match.',
     'username' => 'Username',
     'release' => 'Release desk',
+    'role' => 'Role',
+    'email_verified_at' => 'Email Verified at',
 ];

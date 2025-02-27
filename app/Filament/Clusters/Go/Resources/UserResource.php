@@ -2,7 +2,7 @@
 
 namespace App\Filament\Clusters\Go\Resources;
 
-use App\Filament\Clusters\Go;
+use App\Filament\Clusters\Configuration;
 use App\Filament\Clusters\Go\Resources\UserResource\Pages;
 use App\Filament\Clusters\Go\Resources\UserResource\RelationManagers;
 use App\Models\User;
@@ -20,7 +20,7 @@ class UserResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $cluster = Go::class;
+    protected static ?string $cluster = Configuration::class;
 
     public static function form(Form $form): Form
     {
