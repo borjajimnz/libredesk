@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
 
         Room::query()->create([
             'name' => 'Demo Room',
-            'attributes' => json_decode('{"image":"01JN4MWN7RSR02NVM3S7EB58H7.jpeg"}'),
+            'attributes' => json_decode('{"image":"01JDJM53P77AE2SNWZRP0R7RGZ.png"}'),
             'floor_id' => 1,
         ]);
 
