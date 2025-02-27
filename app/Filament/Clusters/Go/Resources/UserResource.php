@@ -34,6 +34,7 @@ class UserResource extends Resource
                 Forms\Components\DateTimePicker::make('email_verified_at'),
                 Forms\Components\TextInput::make('password')
                     ->password()
+                    ->hidden(config('app.env') === 'demo')
                     ->required(),
                 Forms\Components\Textarea::make('attributes')
                     ->columnSpanFull(),
